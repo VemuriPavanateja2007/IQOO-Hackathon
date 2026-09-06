@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalMind AI - Antigravity Health Platform</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Background Canvas for Zero-G Particles -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- App Container -->
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-atom pulse-icon"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>VitalMind AI</h2>
+                    <span class="subtext">ANTIGRAVITY HEALTH</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <button class="nav-item active" data-view="dashboard">
+                    <i class="fa-solid fa-chart-line"></i> <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-view="fitness">
+                    <i class="fa-solid fa-dumbbell"></i> <span>Antigravity Fitness</span>
+                </button>
+                <button class="nav-item" data-view="wellness">
+                    <i class="fa-solid fa-bed-pulse"></i> <span>Wellness & Sleep</span>
+                </button>
+                <button class="nav-item" data-view="mental">
+                    <i class="fa-solid fa-brain"></i> <span>Mental Health & CBT</span>
+                </button>
+                <button class="nav-item" data-view="medications">
+                    <i class="fa-solid fa-pills"></i> <span>Medications</span>
+                </button>
+                <button class="nav-item" data-view="appointments">
+                    <i class="fa-solid fa-user-doctor"></i> <span>CMO Appointments</span>
+                </button>
+                <button class="nav-item" data-view="ai-assistant">
+                    <i class="fa-solid fa-robot"></i> <span>AI Assistant</span>
+                </button>
+                <button class="nav-item" data-view="profile">
+                    <i class="fa-solid fa-user-gear"></i> <span>Crew Profile</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="station-badge">
+                    <i class="fa-solid fa-satellite"></i>
+                    <div>
+                        <span class="label">ORBITAL STATION</span>
+                        <span class="value">Outpost Alpha (Zero-G)</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button id="menuToggle" class="icon-btn mobile-only"><i class="fa-solid fa-bars"></i></button>
+                    <h1 id="pageTitle">Orbital Telemetry Dashboard</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="status-indicator">
+                        <span class="dot green-pulse"></span>
+                        <span class="status-text">Telemetry Active</span>
+                    </div>
+
+                    <button class="emergency-btn" id="emergencyBtn">
+                        <i class="fa-solid fa-triangle-exclamation"></i> CMO Emergency
+                    </button>
+
+                    <div class="user-profile-chip" id="profileChip">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Avatar" class="avatar-img">
+                        <div class="user-info">
+                            <span class="user-name">Alex Vance</span>
+                            <span class="user-role">Systems Engineer</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dynamic Views Container -->
+            <div id="viewContainer" class="view-container">
+                <!-- Views loaded dynamically by app.js -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Emergency Modal -->
+    <div id="emergencyModal" class="modal-overlay hidden">
+        <div class="modal-card emergency-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-triangle-exclamation"></i> Chief Medical Officer Emergency Protocol</h3>
+                <button class="close-btn" id="closeEmergencyModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="alert-text">If you are experiencing severe zero-g disorientation, chest pressure, decompression pain, or an urgent medical crisis, follow the station protocol immediately.</p>
+                <div class="emergency-actions">
+                    <button class="btn btn-danger btn-block" onclick="alert('Emergency Alert Signal Sent to Station CMO Console (Ch 1-Alpha)!')">
+                        <i class="fa-solid fa-satellite-dish"></i> Signal Station CMO Alert Now
+                    </button>
+                    <button class="btn btn-secondary btn-block" onclick="alert('Connecting to Tele-Surgery & Medical Bay Audio Link...')">
+                        <i class="fa-solid fa-headset"></i> Open Emergency Audio Channel
+                    </button>
+                </div>
+                <div class="cmo-contact-box">
+                    <strong>Chief Medical Officer:</strong> Dr. Aris Thorne (Comms ID: 409-CMO-ALPHA)<br>
+                    <strong>Medical Bay:</strong> Deck 3, Module B-4
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breathing Exercise Modal -->
+    <div id="breathingModal" class="modal-overlay hidden">
+        <div class="modal-card breathing-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-wind"></i> Zero-G Box Breathing Exercise</h3>
+                <button class="close-btn" id="closeBreathingModal">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="subtitle">Sync your diaphragmatic breathing with the zero-g visualizer to lower heart rate and stress scores.</p>
+
+                <div class="breathing-circle-container">
+                    <div id="breathingCircle" class="breathing-circle">
+                        <span id="breathingInstruction">Inhale</span>
+                    </div>
+                </div>
+
+                <div class="breathing-timer" id="breathingTimer">04:00</div>
+
+                <div class="breathing-controls">
+                    <button class="btn btn-primary" id="startBreathingBtn"><i class="fa-solid fa-play"></i> Start Session</button>
+                    <button class="btn btn-secondary" id="stopBreathingBtn"><i class="fa-solid fa-stop"></i> Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
